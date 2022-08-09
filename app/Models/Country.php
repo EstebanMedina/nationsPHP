@@ -14,4 +14,18 @@ class Country extends Model
     //omitir campos de auditoria
     public $timestamps = false; 
     use HasFactory;
+
+    //relacion M:M entre paises e idiomas
+    public function idiomas(){
+        //belongsToMany : parametros
+        //1 - modelo a relacionar
+        //2 - La tabla pidote 
+        //3 - FK del modelo actual en el pivote
+        //4 - FK del modelo a relacionar el pivote
+        return $this->belongsToMany(idioma::Class,
+                                    'country_languages',
+                                    'country_id',
+                                    'language_id'
+                                    )->withPivot('official');
+    }
 }
